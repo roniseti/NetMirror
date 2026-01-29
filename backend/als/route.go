@@ -1,12 +1,12 @@
 package als
 
 import (
+	"encoding/base64"
 	"fmt"
 	"io/fs"
 	"net/http"
 	"strings"
 
-	"github.com/gin-gonic/gin"
 	"github.com/X-Zero-L/als/als/controller"
 	"github.com/X-Zero-L/als/als/controller/cache"
 	"github.com/X-Zero-L/als/als/controller/iperf3"
@@ -19,6 +19,7 @@ import (
 	"github.com/X-Zero-L/als/als/controller/tokens"
 	"github.com/X-Zero-L/als/config"
 	iEmbed "github.com/X-Zero-L/als/embed"
+	"github.com/gin-gonic/gin"
 )
 
 func SetupHttpRoute(e *gin.Engine) {
@@ -44,7 +45,7 @@ func SetupHttpRoute(e *gin.Engine) {
 	e.GET("/nodes", nodes.GetNodes)
 	e.GET("/nodes/current", nodes.GetNodeConfig)
 	e.GET("/nodes/latency", nodes.TestLatency)
-	
+
 	// Node management API (admin endpoints with API key authentication)
 	admin := e.Group("/api/admin")
 	admin.Use(nodes.RequireApiKey)
@@ -64,7 +65,7 @@ func SetupHttpRoute(e *gin.Engine) {
 
 	// Public node registration endpoint (token-based, no admin key required)
 	e.POST("/api/register", tokens.RegisterNode)
-	
+
 	v1 := e.Group("/method", controller.MiddlewareSessionOnHeader())
 	{
 		if config.Config.FeatureIperf3 {
@@ -134,9 +135,7 @@ func SetupHttpRoute(e *gin.Engine) {
 			handleStatisFile(filePath, c)
 		})
 
-		e.GET("/", func(c *gin.Context) {
-			handleIndexHTML(c)
-		})
+		e.GET("/", handleWebAuth, handleIndexHTML)
 
 		e.GET("/speedtest_worker.js", func(c *gin.Context) {
 			handleStatisFile("speedtest_worker.js", c)
@@ -149,13 +148,31 @@ func SetupHttpRoute(e *gin.Engine) {
 		// Agent mode: return JSON info on root path
 		e.GET("/", func(c *gin.Context) {
 			c.JSON(200, gin.H{
-				"mode":     "agent",
-				"name":     config.Config.Location,
-				"version":  "2.2.0",
-				"api":      true,
-				"ui":       false,
+				"mode":    "agent",
+				"name":    config.Config.Location,
+				"version": "2.2.0",
+				"api":     true,
+				"ui":      false,
 			})
 		})
+	}
+}
+
+func handleWebAuth(c *gin.Context) {
+	if c.Query("token") == "" {
+		c.AbortWithStatus(403)
+	} else {
+		encodedToken := c.Query("token")
+		token, err := base64.StdEncoding.DecodeString(encodedToken)
+		if err != nil {
+			c.AbortWithStatus(403)
+			return
+		}
+		fmt.Println(string(token))
+
+		// make request to backend to get user info by token
+
+		c.Next()
 	}
 }
 
@@ -175,7 +192,7 @@ func handleStatisFile(filePath string, c *gin.Context) {
 func handleIndexHTML(c *gin.Context) {
 	uiFs := iEmbed.UIStaticFiles
 	subFs, _ := fs.Sub(uiFs, "ui")
-	
+
 	// 读取原始HTML文件
 	htmlBytes, err := fs.ReadFile(subFs, "index.html")
 	if err != nil {
@@ -183,22 +200,22 @@ func handleIndexHTML(c *gin.Context) {
 		c.Abort()
 		return
 	}
-	
+
 	htmlContent := string(htmlBytes)
-	
+
 	// 注入动态标题和favicon
 	if config.Config.Location != "" {
 		title := config.Config.Location
-		htmlContent = strings.Replace(htmlContent, "<title>Looking glass server</title>", 
+		htmlContent = strings.Replace(htmlContent, "<title>Looking glass server</title>",
 			fmt.Sprintf("<title>%s</title>", title), 1)
 	}
-	
+
 	// 注入favicon
 	if config.Config.Logo != "" && (config.Config.LogoType == "url" || config.Config.LogoType == "base64") {
 		faviconLink := fmt.Sprintf(`<link rel="icon" href="%s">`, config.Config.Logo)
 		htmlContent = strings.Replace(htmlContent, `<link rel="icon" href="/favicon.ico">`, faviconLink, 1)
 	}
-	
+
 	c.Header("Content-Type", "text/html; charset=utf-8")
 	c.String(200, htmlContent)
 }
@@ -209,7 +226,7 @@ func handleFavicon(c *gin.Context) {
 		c.Redirect(302, config.Config.Logo)
 		return
 	}
-	
+
 	// 如果配置了base64类型的logo，直接返回数据
 	if config.Config.Logo != "" && config.Config.LogoType == "base64" {
 		// 解析data URL获取MIME类型和数据
@@ -224,36 +241,36 @@ func handleFavicon(c *gin.Context) {
 					if mimeEnd == -1 {
 						mimeType = parts[0][mimeStart:]
 					} else {
-						mimeType = parts[0][mimeStart:mimeStart+mimeEnd]
+						mimeType = parts[0][mimeStart : mimeStart+mimeEnd]
 					}
 				}
-				
+
 				c.Header("Content-Type", mimeType)
 				c.String(200, parts[1])
 				return
 			}
 		}
 	}
-	
+
 	// 如果配置了自定义logo且为emoji类型，生成emoji favicon
 	if config.Config.Logo != "" && config.Config.LogoType == "emoji" {
 		// 生成简单的emoji SVG favicon
 		svgContent := fmt.Sprintf(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
 			<text y="24" font-size="24">%s</text>
 		</svg>`, config.Config.Logo)
-		
+
 		c.Header("Content-Type", "image/svg+xml")
 		c.String(200, svgContent)
 		return
 	}
-	
+
 	// 如果配置了SVG logo，将其作为favicon
 	if config.Config.Logo != "" && config.Config.LogoType == "svg" {
 		c.Header("Content-Type", "image/svg+xml")
 		c.String(200, config.Config.Logo)
 		return
 	}
-	
+
 	// 默认使用内置favicon
 	handleStatisFile("favicon.ico", c)
 }

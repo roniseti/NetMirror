@@ -5,7 +5,7 @@
       <div class="text-sm text-gray-600 dark:text-gray-400 order-2 sm:order-1">
         {{ nodes.length }} node{{ nodes.length !== 1 ? 's' : '' }} available
       </div>
-      <button
+      <!-- <button
         @click="testAllLatencies"
         :disabled="loading"
         class="inline-flex items-center justify-center px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 order-1 sm:order-2 w-full sm:w-auto"
@@ -23,6 +23,30 @@
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
         </svg>
         {{ loading ? 'Testing All Nodes...' : 'Refresh All Nodes' }}
+      </button> -->
+      <button
+        @click="testAllLatencies"
+        :disabled="loading"
+        class="inline-flex items-center justify-center px-4 py-2 rounded-lg text-sm font-medium transition-colors order-1 sm:order-2 w-full sm:w-auto"
+        :class="loading
+          ? 'bg-black text-white dark:bg-white dark:text-black cursor-not-allowed'
+          : 'bg-gray-900 text-white hover:bg-gray-800 dark:bg-gray-100 dark:text-gray-900 dark:hover:bg-gray-200'"
+      >
+        <svg 
+          class="w-4 h-4 mr-2"
+          :class="{ 'animate-spin': loading }"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"
+          />
+        </svg>
+        {{ loading ? 'Testing All Nodes...' : 'Refresh All Nodes' }}
       </button>
     </div>
 
@@ -32,7 +56,7 @@
       <button
         v-if="totalPages > 1"
         @click="goToPrevPage"
-        class="absolute left-0 top-1/2 transform -translate-y-1/2 z-10 w-10 h-10 bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm border border-gray-200 dark:border-gray-700 rounded-full shadow-lg transition-all duration-200 flex items-center justify-center opacity-0 hover:opacity-100 hover:bg-primary-50 dark:hover:bg-primary-900/30 hidden md:flex"
+        class="absolute left-0 top-1/2 transform -translate-y-1/2 z-10 w-10 h-10 bg-white dark:bg-neutral-800 backdrop-blur-sm border border-gray-200 dark:border-neutral-700 rounded-full shadow-lg transition-all duration-200 flex items-center justify-center opacity-0 hover:opacity-100 hover:bg-primary-50 dark:hover:bg-primary-900/30 hidden md:flex"
         @mouseenter="$event.target.style.opacity = '1'"
         @mouseleave="$event.target.style.opacity = '0'"
       >
@@ -44,7 +68,7 @@
       <button
         v-if="totalPages > 1"
         @click="goToNextPage"
-        class="absolute right-0 top-1/2 transform -translate-y-1/2 z-10 w-10 h-10 bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm border border-gray-200 dark:border-gray-700 rounded-full shadow-lg transition-all duration-200 flex items-center justify-center opacity-0 hover:opacity-100 hover:bg-primary-50 dark:hover:bg-primary-900/30 hidden md:flex"
+        class="absolute right-0 top-1/2 transform -translate-y-1/2 z-10 w-10 h-10 bg-white dark:bg-neutral-800 backdrop-blur-sm border border-gray-200 dark:border-neutral-700 rounded-full shadow-lg transition-all duration-200 flex items-center justify-center opacity-0 hover:opacity-100 hover:bg-primary-50 dark:hover:bg-primary-900/30 hidden md:flex"
         @mouseenter="$event.target.style.opacity = '1'"
         @mouseleave="$event.target.style.opacity = '0'"
       >
@@ -60,10 +84,10 @@
             <template v-for="node in currentPageNodes" :key="node.url">
               <div
                 @click="selectNode(node)"
-                class="relative bg-white dark:bg-gray-800 rounded-xl shadow-sm hover:shadow-lg transition-all duration-300 border border-gray-200 dark:border-gray-700 hover:border-primary-500 overflow-hidden group cursor-pointer"
+                class="relative bg-white dark:bg-neutral-800 rounded-lg shadow-sm hover:shadow-lg transition-all duration-300 border border-gray-200 dark:border-neutral-700 hover:border-primary-500 overflow-hidden group cursor-pointer"
                 :class="{ 
-                  'ring-2 ring-primary-500': selectedNode && selectedNode.url === node.url,
-                  'ring-2 ring-blue-500': isCurrentNode(node) && (!selectedNode || selectedNode.url !== node.url)
+                  'ring-1 ring-primary-500': selectedNode && selectedNode.url === node.url,
+                  'ring-1 ring-blue-500': isCurrentNode(node) && (!selectedNode || selectedNode.url !== node.url)
                 }"
               >
                 <!-- Background gradient on hover -->

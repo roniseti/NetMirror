@@ -4,9 +4,9 @@
 
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap");
 
-* {
+/* * {
   box-sizing: border-box;
-}
+} */
 
 html {
   scroll-behavior: smooth;
@@ -26,27 +26,28 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   /* Fix overscroll bounce background color */
-  background-color: #f0f7ff;
-  overscroll-behavior: none;
+  /* background-color: #f0f7ff; */
+  /* overscroll-behavior: none; */
 }
 
 body.dark {
-  background-color: #0f172a;
+  /* background-color: #0f172a; */
 }
 
 #app {
-  min-height: 100vh;
-  min-height: 100dvh;
+  /* min-height: 100vh;
+  min-height: 100dvh; */
   /* Fix overscroll bounce background color */
-  background: linear-gradient(to bottom right, #f0f7ff, #ffffff, #f0f7ff);
+  /* background: linear-gradient(to bottom right, #f0f7ff, #ffffff, #f0f7ff); */
+  background: white;
 }
 
 #app.dark {
-  background: linear-gradient(to bottom right, #0f172a, #1e293b, #0f172a);
+  background: #0a0a0a;
 }
 
 /* Custom scrollbar */
-::-webkit-scrollbar {
+/* ::-webkit-scrollbar {
   width: 10px;
   height: 10px;
 }
@@ -61,7 +62,7 @@ body.dark {
 
 ::-webkit-scrollbar-thumb:hover {
   @apply bg-gray-400 dark:bg-gray-500;
-}
+} */
 
 /* Terminal styles */
 .xterm {

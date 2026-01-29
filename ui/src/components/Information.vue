@@ -87,9 +87,9 @@ const copyToClipboard = async (text, buttonRef = null) => {
 
 <template>
   <div
-    class="bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm rounded-xl shadow-lg border border-primary-200/30 dark:border-primary-700/30 overflow-hidden animate-slide-up">
+    class="bg-white dark:bg-neutral-900 backdrop-blur-sm rounded-xl border dark:border-neutral-700 overflow-hidden">
     <!-- Node Selection Info Header -->
-    <div v-if="selectedNode" class="bg-blue-50 dark:bg-blue-900/20 border-b border-blue-200 dark:border-blue-700 p-4">
+    <!-- <div v-if="selectedNode" class="bg-blue-50 dark:bg-blue-900/20 border-b border-blue-200 dark:border-blue-700 p-4">
       <div class="flex items-center">
         <div class="w-2 h-2 bg-blue-500 rounded-full mr-3"></div>
         <div>
@@ -97,90 +97,53 @@ const copyToClipboard = async (text, buttonRef = null) => {
           <p class="text-sm text-blue-700 dark:text-blue-300">{{ selectedNodeLocation }}</p>
         </div>
       </div>
+    </div> -->
+    <div v-if="selectedNode" class="border-b px-6 py-4 dark:border-neutral-700">
+      <h3 class="font-medium leading-none dark:text-white">
+        {{ currentNodeName }}
+      </h3>
+      <p class="text-sm text-muted-foreground mt-1 dark:text-neutral-400">
+        {{ selectedNodeLocation }}
+      </p>
     </div>
 
-    <div class="p-6">
+
+    <div v-if="selectedNode" class="p-6">
       <div v-if="currentConfig" class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
+        <!-- Left column -->
         <div class="space-y-4">
-          <div>
-            <label class="block text-sm font-medium text-gray-600 dark:text-gray-400 mb-2">Location</label>
-            <div class="flex">
-              <input type="text"
-                class="flex-1 bg-primary-50/50 dark:bg-gray-700 border border-primary-200 dark:border-gray-600 rounded-l-lg px-4 py-3 text-slate-800 dark:text-gray-100 font-mono text-sm focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
-                :value="currentConfig.location" @focus="$event.target.select()" readonly>
-            </div>
-          </div>
-          <div>
-            <label class="block text-sm font-medium text-gray-600 dark:text-gray-400 mb-2">Server IPv4</label>
-            <div class="flex">
-              <input type="text"
-                class="flex-1 bg-primary-50/50 dark:bg-gray-700 border border-primary-200 dark:border-gray-600 rounded-l-lg px-4 py-3 text-slate-800 dark:text-gray-100 font-mono text-sm focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
-                :value="currentConfig.public_ipv4" @focus="$event.target.select()" readonly>
-              <button
-                class="bg-primary-100 hover:bg-primary-200 dark:bg-gray-600 dark:hover:bg-gray-500 border border-l-0 border-primary-200 dark:border-gray-600 rounded-r-lg px-4 py-3 text-primary-600 dark:text-gray-100 transition-colors duration-200 min-w-[44px] flex items-center justify-center"
-                @click="copyToClipboard(currentConfig.public_ipv4, $event.target)">
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                    d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z">
-                  </path>
-                </svg>
-              </button>
-            </div>
-          </div>
+          <InfoRow label="Location" :value="currentConfig.location" />
+
+          <InfoRow
+            label="Server IPv4"
+            :value="currentConfig.public_ipv4"
+            copyable
+          />
         </div>
+
+        <!-- Right column -->
         <div class="space-y-4">
-          <div>
-            <label class="block text-sm font-medium text-gray-600 dark:text-gray-400 mb-2">ASN</label>
-            <div class="flex">
-              <input type="text"
-                class="flex-1 bg-primary-50/50 dark:bg-gray-700 border border-primary-200 dark:border-gray-600 rounded-l-lg px-4 py-3 text-slate-800 dark:text-gray-100 font-mono text-sm focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
-                :value="currentConfig.bgp || currentConfig.asn || 'N/A'" @focus="$event.target.select()" readonly>
-              <button v-if="currentConfig.bgp || currentConfig.asn"
-                class="bg-primary-100 hover:bg-primary-200 dark:bg-gray-600 dark:hover:bg-gray-500 border border-l-0 border-primary-200 dark:border-gray-600 rounded-r-lg px-4 py-3 text-primary-600 dark:text-gray-100 transition-colors duration-200 min-w-[44px] flex items-center justify-center"
-                @click="copyToClipboard(currentConfig.bgp || currentConfig.asn, $event.target)">
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                    d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z">
-                  </path>
-                </svg>
-              </button>
-            </div>
-          </div>
-          <div v-if="currentConfig.public_ipv6">
-            <label class="block text-sm font-medium text-gray-600 dark:text-gray-400 mb-2">Server IPv6</label>
-            <div class="flex">
-              <input type="text"
-                class="flex-1 bg-primary-50/50 dark:bg-gray-700 border border-primary-200 dark:border-gray-600 rounded-l-lg px-4 py-3 text-slate-800 dark:text-gray-100 font-mono text-sm focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
-                :value="currentConfig.public_ipv6" @focus="$event.target.select()" readonly>
-              <button
-                class="bg-primary-100 hover:bg-primary-200 dark:bg-gray-600 dark:hover:bg-gray-500 border border-l-0 border-primary-200 dark:border-gray-600 rounded-r-lg px-4 py-3 text-primary-600 dark:text-gray-100 transition-colors duration-200 min-w-[44px] flex items-center justify-center"
-                @click="copyToClipboard(currentConfig.public_ipv6, $event.target)">
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                    d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z">
-                  </path>
-                </svg>
-              </button>
-            </div>
-          </div>
-          <div>
-            <label class="block text-sm font-medium text-gray-600 dark:text-gray-400 mb-2">Your IP Address</label>
-            <div class="flex">
-              <input type="text"
-                class="flex-1 bg-primary-100/70 dark:bg-gray-600 border border-primary-300 dark:border-gray-500 rounded-l-lg px-4 py-3 text-slate-800 dark:text-gray-100 font-mono text-sm focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
-                :value="currentConfig.my_ip" @focus="$event.target.select()" readonly>
-              <button
-                class="bg-primary-200 hover:bg-primary-300 dark:bg-gray-500 dark:hover:bg-gray-400 border border-l-0 border-primary-300 dark:border-gray-500 rounded-r-lg px-4 py-3 text-primary-700 dark:text-gray-100 transition-colors duration-200 min-w-[44px] flex items-center justify-center"
-                @click="copyToClipboard(currentConfig.my_ip, $event.target)">
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                    d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z">
-                  </path>
-                </svg>
-              </button>
-            </div>
-          </div>
+          <InfoRow
+            label="ASN"
+            :value="currentConfig.bgp || currentConfig.asn || 'N/A'"
+            :copyable="!!(currentConfig.bgp || currentConfig.asn)"
+          />
+
+          <InfoRow
+            v-if="currentConfig.public_ipv6"
+            label="Server IPv6"
+            :value="currentConfig.public_ipv6"
+            copyable
+          />
+
+          <InfoRow
+            label="Your IP Address"
+            :value="currentConfig.my_ip"
+            copyable
+            highlight
+          />
         </div>
+
       </div>
 
       <!-- Sponsor Message -->

@@ -149,15 +149,15 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <div class="h-full flex flex-col bg-gray-900/80 backdrop-blur-sm rounded-xl overflow-hidden border border-gray-700 shadow-2xl">
+  <div class="h-full flex flex-col bg-neutral-900 backdrop-blur-sm rounded-xl overflow-hidden border border-neutral-700">
     <!-- Header -->
-    <div class="flex items-center justify-between p-3 bg-gray-800/90 border-b border-gray-700 flex-shrink-0">
+    <div class="flex items-center justify-between p-3 bg-neutral-800 border-b border-neutral-700 flex-shrink-0">
       <div class="flex items-center space-x-2">
         <div class="w-3 h-3 bg-red-500 rounded-full"></div>
         <div class="w-3 h-3 bg-yellow-500 rounded-full"></div>
         <div class="w-3 h-3 bg-green-500 rounded-full"></div>
       </div>
-      <div class="text-sm text-gray-300">
+      <div class="text-sm text-neutral-300">
         <span v-if="selectedNode">{{ selectedNodeName }} Shell</span>
         <span v-else>Interactive Shell</span>
       </div>

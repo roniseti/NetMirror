@@ -58,22 +58,12 @@ onMounted(() => {
   <div 
     v-if="availableTests.length > 0"
     ref="cardRef" 
-    class="bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm rounded-xl shadow-lg border border-primary-200/30 dark:border-primary-700/30 overflow-hidden animate-slide-up"
+    class="bg-white dark:bg-neutral-900 backdrop-blur-sm rounded-xl border dark:border-neutral-700 overflow-hidden"
   >
-    <!-- Node Selection Info -->
-    <div v-if="selectedNode" class="bg-yellow-50 dark:bg-yellow-900/20 border-b border-yellow-200 dark:border-yellow-700 p-4">
-      <div class="flex items-center">
-        <div class="w-2 h-2 bg-yellow-500 rounded-full mr-3"></div>
-        <div>
-          <h3 class="font-medium text-yellow-900 dark:text-yellow-100">Running on {{ selectedNodeName }}</h3>
-          <p class="text-sm text-yellow-700 dark:text-yellow-300">{{ selectedNodeLocation }}</p>
-        </div>
-      </div>
-    </div>
     
     <div class="p-6 space-y-6">
       <!-- Sub-tabs for speed tests -->
-      <div v-if="availableTests.length > 1" class="flex justify-center">
+      <!-- <div v-if="availableTests.length > 1" class="flex justify-center">
         <div class="bg-primary-100/50 dark:bg-gray-700/50 rounded-lg p-1 flex space-x-1">
           <button
             v-for="test in availableTests"
@@ -84,6 +74,24 @@ onMounted(() => {
               activeTest === test.id
                 ? 'bg-primary-600 text-white shadow-lg'
                 : 'text-gray-600 dark:text-gray-300 hover:bg-primary-50 dark:hover:bg-gray-600/50 hover:text-primary-700 dark:hover:text-white'
+            ]"
+          >
+            {{ test.name }}
+          </button>
+        </div>
+      </div> -->
+      <!-- Sub-tabs for speed tests -->
+      <div v-if="availableTests.length > 1" class="flex justify-center">
+        <div class="inline-flex rounded-md border border-gray-200 dark:border-gray-700 bg-gray-100 dark:bg-gray-800 p-1">
+          <button
+            v-for="test in availableTests"
+            :key="test.id"
+            @click="activeTest = test.id"
+            :class="[
+              'px-3 py-1.5 text-sm rounded-sm transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-400 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-neutral-900',
+              activeTest === test.id
+                ? 'bg-white dark:bg-neutral-900 text-gray-900 dark:text-gray-100 shadow-sm'
+                : 'text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100'
             ]"
           >
             {{ test.name }}
@@ -100,7 +108,7 @@ onMounted(() => {
   </div>
   
   <!-- No node selected state -->
-  <div v-else class="bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm rounded-xl shadow-lg border border-primary-200/30 dark:border-primary-700/30 overflow-hidden animate-slide-up">
+  <div v-else class="bg-white dark:bg-neutral-900 backdrop-blur-sm rounded-xl border dark:border-neutral-700 overflow-hidden">
     <div class="p-6 text-center">
       <div class="w-16 h-16 mx-auto mb-4 bg-gray-100 dark:bg-gray-700 rounded-full flex items-center justify-center">
         <svg class="w-8 h-8 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">

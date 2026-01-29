@@ -185,9 +185,11 @@ onUnmounted(() => {
     </div>
 
     <!-- Control Panel -->
-    <div class="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm border border-gray-200 dark:border-gray-700">
-      <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-        <div class="flex items-center space-x-4">
+    <!-- <div class="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm border border-gray-200 dark:border-gray-700">
+      <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4"> -->
+    <div class="rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-neutral-900 p-4">
+      <div class="flex flex-col sm:flex-row gap-3">
+        <div class="flex items-center space-x-4 flex-1">
           <div class="flex items-center justify-center w-12 h-12 bg-gradient-to-r from-green-500 to-emerald-500 rounded-xl">
             <ServerIcon class="w-6 h-6 text-white" />
           </div>
@@ -197,7 +199,7 @@ onUnmounted(() => {
           </div>
         </div>
         
-        <button
+        <!-- <button
           @click="working ? stopServer() : startServer()"
           class="inline-flex items-center px-6 py-3 rounded-xl font-medium transition-all duration-200"
           :class="working 
@@ -205,6 +207,17 @@ onUnmounted(() => {
             : 'bg-primary-500 hover:bg-primary-600 text-white hover:shadow-lg'"
         >
           <component :is="working ? StopIcon : PlayIcon" class="w-5 h-5 mr-2" />
+          {{ working ? 'Stop Server' : 'Start Server' }}
+        </button> -->
+        <button
+          @click="working ? stopServer() : startServer()"
+          class="inline-flex items-center justify-center gap-2 rounded-lg border border-gray-300 dark:border-gray-700
+                px-4 py-2 text-sm font-medium transition-colors
+                disabled:opacity-50 disabled:cursor-not-allowed
+                bg-gray-900 text-white hover:bg-gray-800
+                dark:bg-gray-100 dark:text-gray-900 dark:hover:bg-gray-200"
+        >
+          <!-- <component :is="working ? StopIcon : PlayIcon" class="h-4 w-4" /> -->
           {{ working ? 'Stop Server' : 'Start Server' }}
         </button>
       </div>
@@ -216,12 +229,12 @@ onUnmounted(() => {
             <ClockIcon class="w-4 h-4 mr-1.5" />
             Session timeout
           </span>
-          <span>{{ Math.ceil(timeout.value - timePass.value) }}s remaining</span>
+          <span>{{ Math.ceil(timeout - timePass) }}s remaining</span>
         </div>
         <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2.5">
           <div 
-            class="bg-gradient-to-r from-yellow-400 to-orange-500 h-2.5 rounded-full transition-all duration-1000"
-            :style="{ width: `${timeoutPercentage.value}%` }"
+            class="bg-gradient-to-r to-yellow-400 from-orange-500 h-2.5 rounded-full transition-all duration-1000"
+            :style="{ width: `${Math.abs(timeoutPercentage - 100)}%` }"
           ></div>
         </div>
       </div>
@@ -264,14 +277,14 @@ onUnmounted(() => {
     </Transition>
 
     <!-- Terminal -->
-    <div class="bg-gray-900 rounded-xl overflow-hidden border border-gray-700 shadow-lg">
-      <div class="flex items-center justify-between px-4 py-2 bg-gray-800 border-b border-gray-700">
+    <div class="bg-neutral-900 rounded-xl overflow-hidden border border-neutral-700">
+      <div class="flex items-center justify-between px-4 py-2 bg-neutral-800 border-b border-neutral-700">
         <div class="flex items-center space-x-2">
           <div class="w-3 h-3 bg-red-500 rounded-full"></div>
           <div class="w-3 h-3 bg-yellow-500 rounded-full"></div>
           <div class="w-3 h-3 bg-green-500 rounded-full"></div>
         </div>
-        <span class="text-sm font-medium text-gray-300">IPerf3 Terminal</span>
+        <span class="text-sm font-medium text-neutral-300">IPerf3 Terminal</span>
         <div class="w-16"></div>
       </div>
       <div ref="terminalRef" class="h-96 p-4"></div>

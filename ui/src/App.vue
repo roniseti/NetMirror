@@ -53,6 +53,20 @@ const tabContainer = ref(null)
 const tabNavigation = ref(null)
 const showFab = ref(false)
 
+const params = new URLSearchParams(window.location.search)
+let encodedToken = params.get('token')
+let encodedRoles = params.get('ra')
+let roles = "";
+
+if (encodedToken) {
+  let token = atob(encodedToken)
+  console.log(token)
+}
+
+if (encodedRoles) {
+  roles = atob(encodedRoles)
+}
+
 // Use store theme and language
 const isDark = computed(() => appStore.theme === 'dark')
 const currentLangCode = computed(() => appStore.language)
@@ -103,6 +117,16 @@ const toggleTheme = () => {
     document.documentElement.classList.remove('dark')
     document.body.classList.remove('dark')
     document.getElementById('app')?.classList.remove('dark')
+  }
+}
+
+if (isDark.value == true) {
+  if (params.get('mode') !== 'dark') {
+    toggleTheme()
+  }
+} else {
+  if (params.get('mode') === 'dark') {
+    toggleTheme()
   }
 }
 
@@ -191,89 +215,10 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <div class="min-h-screen bg-gradient-to-br from-primary-50 via-white to-primary-100 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 transition-all duration-500" style="min-height: 100vh; min-height: 100dvh;">
-    <!-- Enhanced floating decorative elements -->
-    <div class="fixed inset-0 overflow-hidden pointer-events-none">
-      <div class="absolute -top-40 -right-40 w-96 h-96 bg-gradient-to-r from-primary-200/40 to-blue-300/30 dark:from-primary-800/20 dark:to-blue-900/10 rounded-full mix-blend-multiply filter blur-3xl opacity-70 animate-pulse-slow"></div>
-      <div class="absolute -bottom-40 -left-40 w-96 h-96 bg-gradient-to-r from-blue-200/40 to-primary-300/30 dark:from-blue-800/20 dark:to-primary-900/10 rounded-full mix-blend-multiply filter blur-3xl opacity-70 animate-pulse-slow" style="animation-delay: 2s;"></div>
-      <div class="absolute top-1/3 right-1/4 w-64 h-64 bg-gradient-to-r from-primary-100/30 to-sky-200/20 dark:from-primary-900/10 dark:to-sky-900/5 rounded-full mix-blend-multiply filter blur-2xl opacity-50 animate-pulse-slow" style="animation-delay: 4s;"></div>
-      <div class="absolute bottom-1/3 left-1/4 w-80 h-80 bg-gradient-to-r from-sky-100/30 to-primary-200/20 dark:from-sky-900/10 dark:to-primary-900/5 rounded-full mix-blend-multiply filter blur-2xl opacity-40 animate-pulse-slow" style="animation-delay: 6s;"></div>
-    </div>
+  <div class="px-4 min-h-screen bg-background text-foreground">
 
     <!-- Main container -->
     <div class="relative z-10 min-h-screen">
-      <!-- Header -->
-      <header class="pt-8 pb-6 px-4">
-        <div class="max-w-6xl mx-auto text-center">
-          <!-- Logo/Icon -->
-          <div 
-            class="inline-flex items-center justify-center mb-4 animate-scale-in"
-            :class="[
-              appStore.config?.logo && (appStore.config.logo_type === 'text' || appStore.config.logo_type === 'emoji') 
-                ? 'min-w-14 h-14 px-4 py-2 bg-gradient-to-br from-primary-500 to-primary-600 rounded-xl shadow-lg shadow-primary-500/25' 
-                : appStore.config?.logo && (appStore.config.logo_type === 'svg' || appStore.config.logo_type === 'url' || appStore.config.logo_type === 'base64')
-                ? 'w-14 h-14'
-                : 'w-14 h-14 bg-gradient-to-br from-primary-500 to-primary-600 rounded-xl shadow-lg shadow-primary-500/25'
-            ]"
-          >
-            <!-- 根据logo类型显示不同内容 -->
-            <template v-if="appStore.config?.logo">
-              <!-- URL类型或base64图片 -->
-              <img 
-                v-if="appStore.config.logo_type === 'url' || appStore.config.logo_type === 'base64'"
-                :src="appStore.config.logo" 
-                alt="Logo" 
-                class="w-12 h-12 object-contain"
-                @error="($event) => $event.target.style.display = 'none'"
-              />
-              <!-- SVG类型 -->
-              <div 
-                v-else-if="appStore.config.logo_type === 'svg'"
-                class="w-12 h-12 flex items-center justify-center"
-                v-html="appStore.config.logo"
-              ></div>
-              <!-- Emoji类型 -->
-              <span 
-                v-else-if="appStore.config.logo_type === 'emoji'"
-                class="text-2xl"
-              >{{ appStore.config.logo }}</span>
-              <!-- 纯文本类型 - 智能适配 -->
-              <span 
-                v-else
-                class="font-bold text-white text-center leading-tight px-1"
-                :class="appStore.config.logo.length > 8 ? 'text-xs' : appStore.config.logo.length > 5 ? 'text-sm' : 'text-base'"
-              >{{ appStore.config.logo }}</span>
-            </template>
-            <!-- 默认SVG图标 -->
-            <svg 
-              v-else
-              class="w-7 h-7 text-white" 
-              fill="none" 
-              stroke="currentColor" 
-              stroke-width="2" 
-              viewBox="0 0 24 24"
-            >
-              <path stroke-linecap="round" stroke-linejoin="round" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9v-9m0-9v9"/>
-            </svg>
-          </div>
-
-          <!-- Title and subtitle -->
-          <div class="space-y-3 animate-fade-in">
-            <h1 class="text-2xl md:text-3xl lg:text-4xl font-bold bg-gradient-to-r from-primary-600 via-primary-500 to-blue-600 bg-clip-text text-transparent tracking-tight">
-              {{ appStore.config?.app_title || 'Network Diagnostic Tools' }}
-            </h1>
-            <p class="text-base md:text-lg text-gray-600 dark:text-gray-300 font-medium max-w-2xl mx-auto">
-              {{ appStore.config?.location || 'Professional Looking Glass Server' }}
-            </p>
-            
-            <!-- Status indicator -->
-            <div class="inline-flex items-center px-3 py-1.5 bg-white/70 dark:bg-gray-800/70 backdrop-blur-sm rounded-full border border-primary-200/50 dark:border-primary-700/50 shadow-lg">
-              <div class="w-2 h-2 bg-green-500 rounded-full mr-2 animate-pulse"></div>
-              <span class="text-sm font-medium text-gray-700 dark:text-gray-300">Server Online</span>
-            </div>
-          </div>
-        </div>
-      </header>
 
       <!-- Main content area -->
       <main class="pb-8">
@@ -284,10 +229,10 @@ onUnmounted(() => {
         <template v-else>
           <LoadingCard v-if="appStore.connecting" />
           <template v-else>
-            <div class="max-w-7xl mx-auto space-y-4 md:space-y-6 px-4">
+            <div class="max-w-7xl mx-auto space-y-4 md:space-y-6 px-4 pt-4">
               <!-- Node List Card with enhanced mobile spacing -->
-              <div class="animate-slide-up">
-                <div class="bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm rounded-xl shadow-lg border border-primary-200/30 dark:border-primary-700/30 overflow-hidden p-4 md:p-6">
+              <div>
+                <div class="bg-white dark:bg-neutral-900 rounded-xl border dark:border-neutral-700 overflow-hidden p-4 md:p-6">
                   <div class="mb-3 md:mb-4">
                     <h2 class="text-lg md:text-xl font-semibold text-gray-900 dark:text-gray-100 mb-2">Looking Glass Nodes Configuration</h2>
                     <p class="text-sm text-gray-600 dark:text-gray-400">Select and test connectivity to different network nodes</p>
@@ -296,18 +241,17 @@ onUnmounted(() => {
                 </div>
               </div>
               <!-- Tab Navigation with improved mobile layout -->
-              <div ref="tabNavigation" class="animate-slide-up mt-6 md:mt-8" style="animation-delay: 0.1s;">
-                <div class="bg-white/60 dark:bg-gray-800/60 backdrop-blur-lg rounded-2xl shadow-lg border border-primary-200/30 dark:border-primary-700/30 p-2">
-                  <!-- Mobile: Scrollable horizontal tabs -->
+              <!-- <div ref="tabNavigation" class="animate-slide-up mt-6 md:mt-8" style="animation-delay: 0.1s;">
+                <div class="bg-white/60 dark:bg-gray-800/60 backdrop-blur-lg rounded-xl border p-2">
                   <div class="md:hidden overflow-x-auto">
                     <div class="flex gap-2 min-w-max px-1">
                       <button
-                        v-for="tab in filteredTabs"
+                        v-for="tab in tabs"
                         :key="tab.id"
                         @click="changeTab(tab.id)"
                         class="flex items-center space-x-2 px-3 py-2 rounded-xl font-medium transition-all duration-200 group whitespace-nowrap flex-shrink-0"
                         :class="activeTab === tab.id 
-                          ? 'bg-gradient-to-r from-primary-500 to-primary-600 text-white shadow-lg' 
+                          ? 'bg-gradient-to-r from-primary-500 to-primary-600 text-white' 
                           : 'bg-white/50 dark:bg-gray-700/50 text-gray-700 dark:text-gray-300 hover:bg-white/80 dark:hover:bg-gray-700/80'"
                       >
                         <svg class="w-4 h-4 transition-transform duration-200" :class="activeTab === tab.id ? 'rotate-12' : 'group-hover:rotate-6'" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -317,15 +261,14 @@ onUnmounted(() => {
                       </button>
                     </div>
                   </div>
-                  <!-- Desktop: Regular flex layout -->
                   <div class="hidden md:flex gap-2">
                     <button
-                      v-for="tab in filteredTabs"
+                      v-for="tab in tabs"
                       :key="tab.id"
                       @click="changeTab(tab.id)"
                       class="flex items-center space-x-2 px-4 py-2.5 rounded-xl font-medium transition-all duration-200 group"
                       :class="activeTab === tab.id 
-                        ? 'bg-gradient-to-r from-primary-500 to-primary-600 text-white shadow-lg' 
+                        ? 'bg-gradient-to-r from-primary-500 to-primary-600 text-white' 
                         : 'bg-white/50 dark:bg-gray-700/50 text-gray-700 dark:text-gray-300 hover:bg-white/80 dark:hover:bg-gray-700/80'"
                     >
                       <svg class="w-5 h-5 transition-transform duration-200" :class="activeTab === tab.id ? 'rotate-12' : 'group-hover:rotate-6'" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -335,6 +278,22 @@ onUnmounted(() => {
                     </button>
                   </div>
                 </div>
+              </div> -->
+
+              <div class="border-b dark:border-neutral-700">
+                <nav class="flex gap-6">
+                  <button
+                    v-for="tab in filteredTabs"
+                    :key="tab.id"
+                    @click="changeTab(tab.id)"
+                    class="pb-3 text-sm font-medium transition-colors"
+                    :class="activeTab === tab.id
+                      ? 'border-b-2 border-black text-foreground dark:border-neutral-300 dark:text-neutral-300'
+                      : 'text-muted-foreground hover:text-foreground dark:text-neutral-400'"
+                  >
+                    {{ tab.label }}
+                  </button>
+                </nav>
               </div>
               
               <!-- Tab Content with improved mobile spacing and dynamic height -->
@@ -344,7 +303,7 @@ onUnmounted(() => {
                   :style="{ transform: `translateX(-${tabIndex * 100}%)` }"
                 >
                   <div 
-                    v-for="(tab, index) in filteredTabs" 
+                    v-for="(tab, index) in tabs" 
                     :key="tab.id"
                     class="w-full flex-shrink-0 px-1 md:px-0"
                     :style="{ order: index }"
@@ -376,10 +335,23 @@ onUnmounted(() => {
           </div>
         </div>
       </footer>
+      <!-- <footer class="border-t py-4">
+        <div class="max-w-7xl mx-auto px-4 text-xs text-muted-foreground text-center">
+          Powered by
+          <a
+            href="https://github.com/catcat-blog/NetMirror"
+            target="_blank"
+            class="underline hover:text-foreground ml-1"
+          >
+            NetMirror
+          </a>
+        </div>
+      </footer> -->
     </div>
 
     <!-- Admin Button (Always Visible) -->
     <button
+      v-if="roles.includes('Admin')"
       @click="toggleAdminMode"
       class="fixed bottom-8 right-8 z-50 w-12 h-12 flex items-center justify-center bg-white dark:bg-gray-700 rounded-full shadow-lg hover:bg-gray-100 dark:hover:bg-gray-600 transition-all duration-200 transform hover:scale-110 border border-gray-200 dark:border-gray-600"
       :class="adminMode ? 'ring-2 ring-primary-500' : ''"
@@ -403,13 +375,13 @@ onUnmounted(() => {
       >
         <div v-if="showFab" class="flex items-center space-x-2">
           <!-- Theme Toggle -->
-          <div class="w-12 h-12 flex items-center justify-center bg-white dark:bg-gray-700 rounded-full shadow-lg border border-gray-200 dark:border-gray-600">
+          <!-- <div class="w-12 h-12 flex items-center justify-center bg-white dark:bg-gray-700 rounded-full shadow-lg border border-gray-200 dark:border-gray-600 hover:scale-110 duration-200">
             <ThemeToggle :is-dark="isDark" @toggle="toggleTheme" />
-          </div>
+          </div> -->
           <!-- Scroll to Top -->
-          <button @click="scrollToTop" class="w-12 h-12 flex items-center justify-center bg-white dark:bg-gray-700 rounded-full shadow-lg hover:bg-gray-100 dark:hover:bg-gray-600 transition-all duration-200 transform hover:scale-110 border border-gray-200 dark:border-gray-600">
+          <!-- <button @click="scrollToTop" class="w-12 h-12 flex items-center justify-center bg-white dark:bg-gray-700 rounded-full shadow-lg hover:bg-gray-100 dark:hover:bg-gray-600 transition-all duration-200 transform hover:scale-110 border border-gray-200 dark:border-gray-600">
             <svg class="w-5 h-5 text-gray-600 dark:text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7"></path></svg>
-          </button>
+          </button> -->
         </div>
       </transition>
     </div>
@@ -539,20 +511,20 @@ body {
 }
 
 /* Custom scrollbar */
-::-webkit-scrollbar {
+/* ::-webkit-scrollbar {
   width: 8px;
-}
+} */
 
-::-webkit-scrollbar-track {
+/* ::-webkit-scrollbar-track {
   background: transparent;
-}
+} */
 
-::-webkit-scrollbar-thumb {
-  background: rgba(59, 130, 246, 0.3);
-  border-radius: 4px;
-}
+/* ::-webkit-scrollbar-thumb { */
+  /* background: rgba(59, 130, 246, 0.3); */
+  /* border-radius: 4px; */
+/* } */
 
-::-webkit-scrollbar-thumb:hover {
+/* ::-webkit-scrollbar-thumb:hover {
   background: rgba(59, 130, 246, 0.5);
 }
 
@@ -562,10 +534,10 @@ body {
 
 .dark ::-webkit-scrollbar-thumb:hover {
   background: rgba(147, 197, 253, 0.5);
-}
+} */
 
 /* Enhanced glassmorphism/acrylic effect */
-.glass-effect {
+/* .glass-effect {
   background: rgba(255, 255, 255, 0.6);
   backdrop-filter: blur(12px) saturate(180%);
   -webkit-backdrop-filter: blur(12px) saturate(180%);
@@ -573,7 +545,7 @@ body {
 
 .dark .glass-effect {
   background: rgba(31, 41, 55, 0.6);
-}
+} */
 
 /* Tab transitions */
 .tab-enter-active {

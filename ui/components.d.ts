@@ -11,6 +11,7 @@ declare module 'vue' {
     Copy: typeof import('./src/components/Copy.vue')['default']
     FileSpeedtest: typeof import('./src/components/Speedtest/FileSpeedtest.vue')['default']
     Information: typeof import('./src/components/Information.vue')['default']
+    InfoRow: typeof import('./src/components/InfoRow.vue')['default']
     InstallScriptModal: typeof import('./src/components/InstallScriptModal.vue')['default']
     IPerf3: typeof import('./src/components/Utilities/IPerf3.vue')['default']
     LanguageSelector: typeof import('./src/components/LanguageSelector.vue')['default']

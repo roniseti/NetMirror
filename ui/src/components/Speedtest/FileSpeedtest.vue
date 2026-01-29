@@ -147,11 +147,11 @@ const getWgetCommand = (fileSize, ipVersion = null) => {
         <div
           v-for="fileSize in currentConfig.speedtest_files"
           :key="fileSize"
-          class="bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm rounded-xl shadow-lg border border-primary-200/30 dark:border-primary-700/30 p-6 transition-all duration-300 hover:shadow-xl hover:border-primary-300/50 dark:hover:border-primary-600/50"
+          class="bg-white dark:bg-neutral-800 backdrop-blur-sm rounded-xl border dark:border-neutral-700 p-6 transition-all duration-300 hover:shadow-xl hover:border-primary-300/50 dark:hover:border-primary-600/50"
         >
           <!-- File size header -->
           <div class="text-center mb-6">
-            <div class="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-primary-500 to-primary-600 rounded-2xl mb-3 shadow-lg">
+            <div class="inline-flex items-center justify-center w-16 h-16 bg-primary-500 rounded-2xl mb-3 shadow-lg">
               <DocumentArrowDownIcon class="w-8 h-8 text-white" />
             </div>
             <h4 class="text-2xl font-bold text-gray-900 dark:text-gray-100">{{ fileSize }}</h4>
@@ -164,7 +164,7 @@ const getWgetCommand = (fileSize, ipVersion = null) => {
             <a
               :href="getFileUrl(fileSize)"
               target="_blank"
-              class="w-full inline-flex items-center justify-center px-4 py-3 bg-gradient-to-r from-primary-600 to-primary-700 text-white font-medium rounded-lg hover:from-primary-700 hover:to-primary-800 transition-all duration-200 hover:scale-105 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500"
+              class="w-full inline-flex items-center justify-center px-4 py-3 bg-primary-600 text-white font-medium rounded-lg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500"
             >
               <DocumentArrowDownIcon class="w-5 h-5 mr-2" />
               Browser Download
@@ -210,7 +210,7 @@ const getWgetCommand = (fileSize, ipVersion = null) => {
           >
             <!-- File size header -->
             <div class="text-center mb-6">
-              <div class="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-primary-500 to-primary-600 rounded-2xl mb-3 shadow-lg">
+              <div class="inline-flex items-center justify-center w-16 h-16 bg-primary-500 rounded-2xl mb-3 shadow-lg">
                 <DocumentArrowDownIcon class="w-8 h-8 text-white" />
               </div>
               <h4 class="text-2xl font-bold text-gray-900 dark:text-gray-100">{{ fileSize }}</h4>
@@ -223,7 +223,7 @@ const getWgetCommand = (fileSize, ipVersion = null) => {
               <a
                 :href="getFileUrl(fileSize, 'ipv4')"
                 target="_blank"
-                class="w-full inline-flex items-center justify-center px-4 py-3 bg-gradient-to-r from-primary-600 to-primary-700 text-white font-medium rounded-lg hover:from-primary-700 hover:to-primary-800 transition-all duration-200 hover:scale-105 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500"
+                class="w-full inline-flex items-center justify-center px-4 py-3 bg-primary-600 text-white font-medium rounded-lg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500"
               >
                 <DocumentArrowDownIcon class="w-5 h-5 mr-2" />
                 Browser Download
@@ -267,7 +267,7 @@ const getWgetCommand = (fileSize, ipVersion = null) => {
           >
             <!-- File size header -->
             <div class="text-center mb-6">
-              <div class="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-primary-500 to-primary-600 rounded-2xl mb-3 shadow-lg">
+              <div class="inline-flex items-center justify-center w-16 h-16 bg-primary-500 rounded-2xl mb-3 shadow-lg">
                 <DocumentArrowDownIcon class="w-8 h-8 text-white" />
               </div>
               <h4 class="text-2xl font-bold text-gray-900 dark:text-gray-100">{{ fileSize }}</h4>
@@ -280,7 +280,7 @@ const getWgetCommand = (fileSize, ipVersion = null) => {
               <a
                 :href="getFileUrl(fileSize, 'ipv6')"
                 target="_blank"
-                class="w-full inline-flex items-center justify-center px-4 py-3 bg-gradient-to-r from-primary-600 to-primary-700 text-white font-medium rounded-lg hover:from-primary-700 hover:to-primary-800 transition-all duration-200 hover:scale-105 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500"
+                class="w-full inline-flex items-center justify-center px-4 py-3 bg-primary-600 text-white font-medium rounded-lg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500"
               >
                 <DocumentArrowDownIcon class="w-5 h-5 mr-2" />
                 Browser Download

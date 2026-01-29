@@ -76,18 +76,18 @@ onMounted(() => {
 <template>
   <div class="space-y-6">
     <!-- Node Selection Info -->
-    <div v-if="selectedNode" class="bg-purple-50 dark:bg-purple-900/20 border border-purple-200 dark:border-purple-700 rounded-xl p-4">
+    <div v-if="selectedNode" class="bg-sky-50 dark:bg-sky-900/20 border border-sky-200 dark:border-sky-700 rounded-xl p-4">
       <div class="flex items-center">
-        <div class="w-2 h-2 bg-purple-500 rounded-full mr-3"></div>
+        <div class="w-2 h-2 bg-sky-500 rounded-full mr-3"></div>
         <div>
-          <h3 class="font-medium text-purple-900 dark:text-purple-100">Running MTR on {{ selectedNodeName }}</h3>
-          <p class="text-sm text-purple-700 dark:text-purple-300">{{ selectedNodeLocation }}</p>
+          <h3 class="font-medium text-sky-900 dark:text-sky-100">Running MTR on {{ selectedNodeName }}</h3>
+          <p class="text-sm text-sky-700 dark:text-sky-300">{{ selectedNodeLocation }}</p>
         </div>
       </div>
     </div>
 
     <!-- Input Section -->
-    <div class="bg-white dark:bg-gray-800 rounded-xl p-4 shadow-sm border border-gray-200 dark:border-gray-700">
+    <!-- <div class="bg-white dark:bg-gray-800 rounded-xl p-4 shadow-sm border border-gray-200 dark:border-gray-700">
       <div class="flex flex-col sm:flex-row gap-4">
         <div class="relative flex-1">
           <ChartBarIcon class="w-5 h-5 text-gray-400 absolute left-3 top-1/2 -translate-y-1/2" />
@@ -110,6 +110,45 @@ onMounted(() => {
             : 'bg-purple-500 hover:bg-purple-600 text-white hover:shadow-lg'"
         >
           <component :is="working ? StopIcon : PlayIcon" class="w-5 h-5 mr-2" />
+          {{ working ? 'Stop' : 'Start MTR' }}
+        </button>
+      </div>
+    </div> -->
+
+    <div class="rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-neutral-900 p-4">
+      <div class="flex flex-col sm:flex-row gap-3">
+        <!-- Input -->
+        <div class="relative flex-1">
+          <ChartBarIcon
+            class="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-400"
+          />
+          <input
+            ref="inputRef"
+            v-model="host"
+            :disabled="working"
+            type="text"
+            placeholder="Enter IP address or domain name"
+            class="w-full rounded-lg border border-gray-300 dark:border-gray-700 bg-transparent
+                  pl-9 pr-3 py-2 text-sm text-gray-900 dark:text-gray-100
+                  placeholder-gray-500 dark:placeholder-gray-400
+                  focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-offset-2
+                  focus:ring-offset-white dark:focus:ring-offset-neutral-900
+                  disabled:opacity-50"
+            @keyup.enter="runMTR"
+          />
+        </div>
+
+        <!-- Button -->
+        <button
+          @click="runMTR"
+          :disabled="!host.trim()"
+          class="inline-flex items-center justify-center gap-2 rounded-lg border border-gray-300 dark:border-gray-700
+                px-4 py-2 text-sm font-medium transition-colors
+                disabled:opacity-50 disabled:cursor-not-allowed
+                bg-gray-900 text-white hover:bg-gray-800
+                dark:bg-gray-100 dark:text-gray-900 dark:hover:bg-gray-200"
+        >
+          <!-- <component :is="working ? StopIcon : PlayIcon" class="h-4 w-4" /> -->
           {{ working ? 'Stop' : 'Start MTR' }}
         </button>
       </div>

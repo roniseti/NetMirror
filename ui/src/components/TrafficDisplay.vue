@@ -79,17 +79,17 @@ const createGraph = (interfaceName) => {
       chart: {
         id: 'interface-' + interfaceName + '-chart',
         foreColor: '#6b7280',
-        animations: {
-          enabled: true,
-          easing: 'linear',
-          dynamicAnimation: {
-            speed: 1000
-          },
-          animateGradually: {
-            enabled: true,
-            delay: 300
-          }
-        },
+        // animations: {
+        //   enabled: true,
+        //   easing: 'linear',
+        //   dynamicAnimation: {
+        //     speed: 1000
+        //   },
+        //   animateGradually: {
+        //     enabled: true,
+        //     delay: 300
+        //   }
+        // },
         zoom: {
           enabled: false
         },
@@ -102,7 +102,7 @@ const createGraph = (interfaceName) => {
         theme: 'dark'
       },
       xaxis: {
-        range: 10,
+        range: 16,
         type: 'category',
         categories: [''],
         labels: {
@@ -148,7 +148,7 @@ const createGraph = (interfaceName) => {
         borderColor: '#374151',
         strokeDashArray: 3
       },
-      colors: ['#10b981', '#8b5cf6']
+      colors: ['#0084d1', '#e7000b']
     },
     series: [
       {
@@ -208,10 +208,10 @@ const updateSerieByInterface = (interfaceName, iface, date = null) => {
   sendDatas.push(send)
   categories.push(nowPointName)
   
-  if (receiveDatas.length > 30) {
-    interfaces.value[interfaceName].categories = categories.slice(-10)
-    interfaces.value[interfaceName].lines[0] = receiveDatas.slice(-10)
-    interfaces.value[interfaceName].lines[1] = sendDatas.slice(-10)
+  if (receiveDatas.length > 64) {
+    interfaces.value[interfaceName].categories = categories.slice(-16)
+    interfaces.value[interfaceName].lines[0] = receiveDatas.slice(-16)
+    interfaces.value[interfaceName].lines[1] = sendDatas.slice(-16)
   }
   
   const finalCategories = categories.slice(0)
@@ -320,7 +320,7 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <div ref="cardRef" class="bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm rounded-xl shadow-lg border border-primary-200/30 dark:border-primary-700/30 overflow-hidden">
+  <div ref="cardRef" class="bg-white dark:bg-neutral-900 backdrop-blur-sm rounded-xl border dark:border-neutral-700 overflow-hidden">
     <div class="p-6">
       <div v-if="Object.keys(interfaces).length === 0" class="text-center py-12">
         <ChartBarIcon class="w-16 h-16 text-gray-400/50 dark:text-gray-500/50 mx-auto mb-4" />
@@ -347,13 +347,13 @@ onUnmounted(() => {
           <div :class="Object.keys(interfaces).length === 1 ? 'flex justify-center gap-16 mb-6' : 'grid grid-cols-2 gap-4 mb-6'">
             <div class="text-center">
               <div class="flex items-center justify-center space-x-2 mb-2">
-                <ArrowDownIcon class="w-4 h-4 text-green-600 dark:text-green-400" />
+                <ArrowDownIcon class="w-4 h-4 text-sky-600 dark:text-sky-400" />
                 <span class="text-sm font-medium text-gray-700 dark:text-gray-300">
                   {{ $t('server_bandwidth_graph_receive') }}
                 </span>
               </div>
               <div class="space-y-1">
-                <p class="text-lg font-bold text-green-600 dark:text-green-400">
+                <p class="text-lg font-bold text-sky-600 dark:text-sky-400">
                   {{ formatBytes(interfaceData.traffic?.receive || 0, 1, true) }}
                 </p>
                 <p class="text-xs text-gray-500 dark:text-gray-400">
@@ -364,13 +364,13 @@ onUnmounted(() => {
             
             <div class="text-center">
               <div class="flex items-center justify-center space-x-2 mb-2">
-                <ArrowUpIcon class="w-4 h-4 text-purple-600 dark:text-purple-400" />
+                <ArrowUpIcon class="w-4 h-4 text-red-600 dark:text-red-400" />
                 <span class="text-sm font-medium text-gray-700 dark:text-gray-300">
                   {{ $t('server_bandwidth_graph_sended') }}
                 </span>
               </div>
               <div class="space-y-1">
-                <p class="text-lg font-bold text-purple-600 dark:text-purple-400">
+                <p class="text-lg font-bold text-red-600 dark:text-red-400">
                   {{ formatBytes(interfaceData.traffic?.send || 0, 1, true) }}
                 </p>
                 <p class="text-xs text-gray-500 dark:text-gray-400">

@@ -57,7 +57,7 @@ const uploadGauge = computed(() => gaugeValue(uploadText.value))
 
 const baseChartOptions = {
   chart: {
-    height: 150,
+    height: 120,
     foreColor: '#6b7280',
     animations: {
       enabled: true,
@@ -321,7 +321,7 @@ onMounted(() => {
     <!-- Results Display -->
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
       <!-- Download -->
-      <div class="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-2xl p-6 border border-primary-200/30 dark:border-primary-700/30 relative overflow-hidden shadow-lg">
+      <div class="bg-white dark:bg-neutral-800 backdrop-blur-sm rounded-2xl p-6 border dark:border-neutral-700 relative overflow-hidden">
         <div class="flex items-center space-x-4 mb-4">
           <div class="flex items-center justify-center w-12 h-12 bg-primary-100 dark:bg-primary-900/30 rounded-xl flex-shrink-0">
             <ArrowDownIcon class="w-6 h-6 text-primary-600 dark:text-primary-400" />
@@ -332,6 +332,7 @@ onMounted(() => {
           </div>
         </div>
         <VueApexCharts
+          height="120"
           type="area"
           ref="chartDownloadRef"
           :options="charts.download.options"
@@ -340,7 +341,7 @@ onMounted(() => {
       </div>
 
       <!-- Upload -->
-      <div class="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-2xl p-6 border border-primary-200/30 dark:border-primary-700/30 relative overflow-hidden shadow-lg">
+      <div class="bg-white dark:bg-neutral-800 backdrop-blur-sm rounded-2xl p-6 border dark:border-neutral-700 relative overflow-hidden">
         <div class="flex items-center space-x-4 mb-4">
           <div class="flex items-center justify-center w-12 h-12 bg-blue-100 dark:bg-blue-900/30 rounded-xl flex-shrink-0">
             <ArrowUpIcon class="w-6 h-6 text-blue-600 dark:text-blue-400" />
@@ -351,6 +352,7 @@ onMounted(() => {
           </div>
         </div>
         <VueApexCharts
+          height="120"
           type="area"
           ref="chartUploadRef"
           :options="charts.upload.options"
@@ -365,20 +367,39 @@ onMounted(() => {
     </div>
 
     <!-- Control Button -->
-    <div class="text-center pt-4">
+    <!-- <div class="text-center pt-4">
       <button
         @click="startOrStopSpeedtest"
         :disabled="!currentSessionId && !working"
-        class="inline-flex items-center px-8 py-4 rounded-full font-semibold text-lg transition-all duration-300 transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
+        class="inline-flex items-center px-8 py-4 rounded-full font-semibold text-lg disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
         :class="working
-          ? 'bg-red-500 hover:bg-red-600 text-white shadow-lg hover:shadow-red-500/30'
-          : 'bg-gradient-to-r from-primary-600 to-primary-700 hover:from-primary-700 hover:to-primary-800 text-white shadow-lg hover:shadow-primary-500/30'"
+          ? 'bg-red-500 hover:bg-red-600 text-white'
+          : 'bg-primary-600 hover:bg-primary-700 text-white'"
       >
         <component :is="working ? StopIcon : PlayIcon" class="w-6 h-6 mr-3" />
         <span v-if="working" class="flex items-center">
           <div class="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin mr-2"></div>
           Stop
         </span>
+        <span v-else>Begin test</span>
+      </button>
+    </div> -->
+    <div class="flex justify-center pt-4">
+      <button
+        @click="startOrStopSpeedtest"
+        :disabled="!currentSessionId && !working"
+        class="inline-flex items-center gap-2 rounded-md border border-gray-300 dark:border-gray-700 px-4 py-2 text-sm font-medium transition-colors
+              disabled:opacity-50 disabled:cursor-not-allowed
+              bg-gray-900 text-white hover:bg-gray-800
+              dark:bg-gray-100 dark:text-gray-900 dark:hover:bg-gray-200"
+      >
+        <component :is="working ? StopIcon : PlayIcon" class="w-4 h-4" />
+
+        <span v-if="working" class="flex items-center gap-2">
+          <span class="w-3 h-3 border-2 border-current border-t-transparent rounded-full animate-spin"></span>
+          Stop
+        </span>
+
         <span v-else>Begin test</span>
       </button>
     </div>

@@ -92,18 +92,18 @@ onMounted(() => {
 <template>
   <div class="space-y-6">
     <!-- Node Selection Info -->
-    <div v-if="selectedNode" class="bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-700 rounded-xl p-4">
+    <div v-if="selectedNode" class="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-700 rounded-xl p-4">
       <div class="flex items-center">
-        <div class="w-2 h-2 bg-green-500 rounded-full mr-3"></div>
+        <div class="w-2 h-2 bg-blue-500 rounded-full mr-3"></div>
         <div>
-          <h3 class="font-medium text-green-900 dark:text-green-100">Running on {{ selectedNodeName }}</h3>
-          <p class="text-sm text-green-700 dark:text-green-300">{{ selectedNodeLocation }}</p>
+          <h3 class="font-medium text-blue-900 dark:text-blue-100">Running on {{ selectedNodeName }}</h3>
+          <p class="text-sm text-blue-700 dark:text-blue-300">{{ selectedNodeLocation }}</p>
         </div>
       </div>
     </div>
     
     <!-- Input Section -->
-    <div class="bg-white dark:bg-gray-800 rounded-xl p-4 shadow-sm border border-gray-200 dark:border-gray-700">
+    <!-- <div class="bg-white dark:bg-gray-800 rounded-xl p-4 shadow-sm border border-gray-200 dark:border-gray-700">
       <div class="flex flex-col sm:flex-row gap-4">
         <div class="relative flex-1">
           <SignalIcon class="w-5 h-5 text-gray-400 absolute left-3 top-1/2 -translate-y-1/2" />
@@ -127,6 +127,45 @@ onMounted(() => {
         >
           <component :is="working ? StopIcon : PlayIcon" class="w-5 h-5 mr-2" />
           {{ working ? 'Stop' : 'Start Ping IPv6' }}
+        </button>
+      </div>
+    </div> -->
+
+    <div class="rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-neutral-900 p-4">
+      <div class="flex flex-col sm:flex-row gap-3">
+        <!-- Input -->
+        <div class="relative flex-1">
+          <SignalIcon
+            class="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-400"
+          />
+          <input
+            ref="inputRef"
+            v-model="host"
+            :disabled="working"
+            type="text"
+            placeholder="Enter IPv6 address or domain name"
+            class="w-full rounded-lg border border-gray-300 dark:border-gray-700 bg-transparent
+                  pl-9 pr-3 py-2 text-sm text-gray-900 dark:text-gray-100
+                  placeholder-gray-500 dark:placeholder-gray-400
+                  focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-offset-2
+                  focus:ring-offset-white dark:focus:ring-offset-neutral-900
+                  disabled:opacity-50"
+            @keyup.enter="ping6"
+          />
+        </div>
+
+        <!-- Button -->
+        <button
+          @click="ping6"
+          :disabled="!host.trim()"
+          class="inline-flex items-center justify-center gap-2 rounded-lg border border-gray-300 dark:border-gray-700
+                px-4 py-2 text-sm font-medium transition-colors
+                disabled:opacity-50 disabled:cursor-not-allowed
+                bg-gray-900 text-white hover:bg-gray-800
+                dark:bg-gray-100 dark:text-gray-900 dark:hover:bg-gray-200"
+        >
+          <!-- <component :is="working ? StopIcon : PlayIcon" class="h-4 w-4" /> -->
+          {{ working ? 'Stop' : 'Start Ping' }}
         </button>
       </div>
     </div>

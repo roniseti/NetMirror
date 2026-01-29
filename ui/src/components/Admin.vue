@@ -1,13 +1,13 @@
 <template>
-  <div class="min-h-screen bg-gradient-to-br from-gray-50 via-white to-primary-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 transition-all duration-500">
+  <div class="min-h-screen">
     <!-- Animated background elements -->
-    <div class="fixed inset-0 overflow-hidden pointer-events-none">
+    <!-- <div class="fixed inset-0 overflow-hidden pointer-events-none">
       <div class="absolute -top-40 -right-40 w-96 h-96 bg-gradient-to-r from-primary-200/30 to-blue-300/20 dark:from-primary-800/10 dark:to-blue-900/5 rounded-full mix-blend-multiply filter blur-3xl opacity-70 animate-pulse-slow"></div>
       <div class="absolute -bottom-40 -left-40 w-96 h-96 bg-gradient-to-r from-blue-200/30 to-primary-300/20 dark:from-blue-800/10 dark:to-primary-900/5 rounded-full mix-blend-multiply filter blur-3xl opacity-70 animate-pulse-slow" style="animation-delay: 2s;"></div>
-    </div>
+    </div> -->
 
     <!-- Header with glass morphism -->
-    <div class="relative z-10 bg-white/80 dark:bg-gray-800/80 backdrop-blur-lg shadow-lg border-b border-primary-200/30 dark:border-primary-700/30">
+    <div class="relative z-10 bg-white dark:bg-neutral-800 backdrop-blur-lg border-b border-primary-200/30 dark:border-primary-700/30">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between items-center py-6">
           <div class="animate-slide-in-left">
@@ -50,13 +50,13 @@
         leave-to-class="opacity-0 translate-y-8 scale-95"
       >
         <div v-if="!isAuthenticated" class="mb-8">
-          <div class="bg-white/90 dark:bg-gray-800/90 backdrop-blur-lg rounded-2xl shadow-xl border border-primary-200/30 dark:border-primary-700/30 p-8 animate-slide-up">
+          <div class="bg-white dark:bg-neutral-900 backdrop-blur-lg rounded-2xl border border-neutral-200 dark:border-neutral-700 p-8 animate-slide-up">
             <div class="text-center mb-6">
-              <div class="w-16 h-16 bg-gradient-to-br from-primary-500 to-primary-600 rounded-2xl shadow-lg shadow-primary-500/25 flex items-center justify-center mx-auto mb-4 animate-bounce-gentle">
+              <!-- <div class="w-16 h-16 bg-gradient-to-br from-primary-500 to-primary-600 rounded-2xl shadow-lg shadow-primary-500/25 flex items-center justify-center mx-auto mb-4 animate-bounce-gentle">
                 <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
                 </svg>
-              </div>
+              </div> -->
               <h2 class="text-2xl font-bold bg-gradient-to-r from-gray-900 to-gray-600 dark:from-gray-100 dark:to-gray-300 bg-clip-text text-transparent mb-2">
                 Admin Authentication
               </h2>
@@ -95,7 +95,7 @@
                 <button
                   @click="authenticate"
                   :disabled="!apiKey.trim() || authenticating"
-                  class="px-6 py-3 bg-gradient-to-r from-primary-600 to-primary-700 text-white rounded-xl hover:from-primary-700 hover:to-primary-800 focus:outline-none focus:ring-2 focus:ring-primary-500 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 transform hover:scale-105 shadow-lg shadow-primary-500/25"
+                  class="px-6 py-3 bg-sky-600 text-white rounded-xl hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-primary-500 disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   <span v-if="authenticating" class="flex items-center">
                     <svg class="animate-spin -ml-1 mr-2 h-5 w-5 text-white" fill="none" viewBox="0 0 24 24">
@@ -105,15 +105,15 @@
                     Verifying...
                   </span>
                   <span v-else class="flex items-center">
-                    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <!-- <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1"></path>
-                    </svg>
+                    </svg> -->
                     Login
                   </span>
                 </button>
               </div>
               <p class="text-xs text-gray-500 dark:text-gray-400 mt-3 text-center">
-                🔒 Your API key will be stored locally and remembered for future sessions
+                Your API key will be stored locally and remembered for future sessions
               </p>
             </div>
           </div>
@@ -129,7 +129,7 @@
         <div v-if="isAuthenticated" class="space-y-6">
           <!-- Stats Cards -->
           <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-            <div class="bg-white/90 dark:bg-gray-800/90 backdrop-blur-lg rounded-2xl shadow-lg border border-primary-200/30 dark:border-primary-700/30 p-6 animate-slide-up" style="animation-delay: 0.1s;">
+            <div class="bg-white dark:bg-neutral-900 backdrop-blur-lg rounded-2xl border border-neutral-200 dark:border-neutral-700 p-6 animate-slide-up" style="animation-delay: 0.1s;">
               <div class="flex items-center">
                 <div class="w-12 h-12 bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl shadow-lg shadow-blue-500/25 flex items-center justify-center">
                   <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -143,7 +143,7 @@
               </div>
             </div>
             
-            <div class="bg-white/90 dark:bg-gray-800/90 backdrop-blur-lg rounded-2xl shadow-lg border border-primary-200/30 dark:border-primary-700/30 p-6 animate-slide-up" style="animation-delay: 0.2s;">
+            <div class="bg-white dark:bg-neutral-900 backdrop-blur-lg rounded-2xl border border-neutral-200 dark:border-neutral-700 p-6 animate-slide-up" style="animation-delay: 0.2s;">
               <div class="flex items-center">
                 <div class="w-12 h-12 bg-gradient-to-br from-green-500 to-green-600 rounded-xl shadow-lg shadow-green-500/25 flex items-center justify-center">
                   <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -163,7 +163,7 @@
               </div>
             </div>
             
-            <div class="bg-white/90 dark:bg-gray-800/90 backdrop-blur-lg rounded-2xl shadow-lg border border-primary-200/30 dark:border-primary-700/30 p-6 animate-slide-up" style="animation-delay: 0.3s;">
+            <div class="bg-white dark:bg-neutral-900 backdrop-blur-lg rounded-2xl border border-neutral-200 dark:border-neutral-700 p-6 animate-slide-up" style="animation-delay: 0.3s;">
               <div class="flex items-center">
                 <div class="w-12 h-12 bg-gradient-to-br from-purple-500 to-purple-600 rounded-xl shadow-lg shadow-purple-500/25 flex items-center justify-center">
                   <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -184,14 +184,14 @@
               <button
                 @click="refreshNodes"
                 :disabled="loading"
-                class="group inline-flex items-center px-4 py-2 border border-gray-300/50 dark:border-gray-600/50 rounded-xl shadow-lg text-sm font-medium text-gray-700 dark:text-gray-200 bg-white/80 dark:bg-gray-700/80 backdrop-blur-sm hover:bg-white dark:hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500 disabled:opacity-50 transition-all duration-200 hover:scale-105"
+                class="group inline-flex items-center px-4 py-2 border border-neutral-300 dark:border-neutral-600 rounded-xl text-sm font-medium text-gray-700 dark:text-gray-200 bg-white/80 dark:bg-gray-700/80 backdrop-blur-sm hover:bg-white dark:hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500 disabled:opacity-50 transition-all duration-200 hover:scale-105"
               >
                 <ArrowPathIcon class="w-4 h-4 mr-2 transition-transform duration-200 group-hover:rotate-180" :class="{ 'animate-spin': loading }" />
                 Refresh
               </button>
               <button
                 @click="testAllNodesConnectivity"
-                class="group inline-flex items-center px-4 py-2 border border-green-300/50 dark:border-green-600/50 rounded-xl shadow-lg text-sm font-medium text-green-700 dark:text-green-200 bg-green-50/80 dark:bg-green-900/20 backdrop-blur-sm hover:bg-green-100 dark:hover:bg-green-900/30 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 transition-all duration-200 hover:scale-105"
+                class="group inline-flex items-center px-4 py-2 border border-green-300/50 dark:border-green-600/50 rounded-xl text-sm font-medium text-green-700 dark:text-green-200 bg-green-50/80 dark:bg-green-900/20 backdrop-blur-sm hover:bg-green-100 dark:hover:bg-green-900/30 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 transition-all duration-200 hover:scale-105"
               >
                 <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path>
@@ -200,7 +200,7 @@
               </button>
               <button
                 @click="toggleTokensSection"
-                class="group inline-flex items-center px-4 py-2 border border-purple-300/50 dark:border-purple-600/50 rounded-xl shadow-lg text-sm font-medium text-purple-700 dark:text-purple-200 bg-purple-50/80 dark:bg-purple-900/20 backdrop-blur-sm hover:bg-purple-100 dark:hover:bg-purple-900/30 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500 transition-all duration-200 hover:scale-105"
+                class="group inline-flex items-center px-4 py-2 border border-purple-300/50 dark:border-purple-600/50 rounded-xl text-sm font-medium text-purple-700 dark:text-purple-200 bg-purple-50/80 dark:bg-purple-900/20 backdrop-blur-sm hover:bg-purple-100 dark:hover:bg-purple-900/30 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500 transition-all duration-200 hover:scale-105"
               >
                 <KeyIcon class="w-4 h-4 mr-2" />
                 {{ showTokensSection ? 'Hide Tokens' : 'Deploy Tokens' }}
@@ -222,7 +222,7 @@
             leave-to-class="opacity-0 -translate-y-4"
           >
             <div v-if="showTokensSection" class="mb-8 animate-slide-up" style="animation-delay: 0.45s;">
-              <div class="bg-white/90 dark:bg-gray-800/90 backdrop-blur-lg rounded-2xl shadow-lg border border-purple-200/30 dark:border-purple-700/30 p-6">
+              <div class="bg-white dark:bg-neutral-900 backdrop-blur-lg rounded-2xl border border-neutral-200 dark:border-neutral-700 p-6">
                 <div class="flex justify-between items-center mb-6">
                   <div class="flex items-center space-x-3">
                     <div class="w-10 h-10 bg-gradient-to-br from-purple-500 to-purple-600 rounded-xl shadow-lg shadow-purple-500/25 flex items-center justify-center">
@@ -336,7 +336,7 @@
                 <div 
                   v-for="(node, index) in nodes" 
                   :key="node.id || node.url"
-                  class="bg-white/90 dark:bg-gray-800/90 backdrop-blur-lg rounded-2xl shadow-lg border border-primary-200/30 dark:border-primary-700/30 p-6 hover:shadow-xl hover:scale-105 transition-all duration-300 group"
+                  class="bg-white dark:bg-neutral-900 backdrop-blur-lg rounded-2xl border border-neutral-200 dark:border-neutral-700 p-6 group"
                   :style="{ 'animation-delay': `${index * 0.1}s` }"
                 >
                   <!-- Card Header -->

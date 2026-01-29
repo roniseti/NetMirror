@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm rounded-xl shadow-lg border border-primary-200/30 dark:border-primary-700/30 overflow-hidden">
+  <div class="bg-white dark:bg-gray-900 backdrop-blur-sm rounded-xl shadow-lg border border-primary-200/30 dark:border-primary-700/30 overflow-hidden">
     <div class="p-4 border-b border-primary-200/30 dark:border-primary-700/30">
       <h3 class="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-2">Select Node</h3>
       <p class="text-sm text-gray-600 dark:text-gray-400">Choose which node to run diagnostics on</p>
