@@ -147,7 +147,7 @@ const getWgetCommand = (fileSize, ipVersion = null) => {
         <div
           v-for="fileSize in currentConfig.speedtest_files"
           :key="fileSize"
-          class="bg-white dark:bg-neutral-800 backdrop-blur-sm rounded-xl border dark:border-neutral-700 p-6 transition-all duration-300 hover:shadow-xl hover:border-primary-300/50 dark:hover:border-primary-600/50"
+          class="bg-white dark:bg-gray-800 backdrop-blur-sm rounded-xl border dark:border-gray-700 p-6 transition-all duration-300 hover:shadow-xl hover:border-primary-300/50 dark:hover:border-primary-600/50"
         >
           <!-- File size header -->
           <div class="text-center mb-6">

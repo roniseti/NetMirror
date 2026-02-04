@@ -7,7 +7,7 @@
     </div> -->
 
     <!-- Header with glass morphism -->
-    <div class="relative z-10 bg-white dark:bg-neutral-800 backdrop-blur-lg border-b border-primary-200/30 dark:border-primary-700/30">
+    <div class="relative z-10 bg-white dark:bg-gray-800 backdrop-blur-lg border-b border-primary-200/30 dark:border-primary-700/30">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between items-center py-6">
           <div class="animate-slide-in-left">
@@ -50,7 +50,7 @@
         leave-to-class="opacity-0 translate-y-8 scale-95"
       >
         <div v-if="!isAuthenticated" class="mb-8">
-          <div class="bg-white dark:bg-neutral-900 backdrop-blur-lg rounded-2xl border border-neutral-200 dark:border-neutral-700 p-8 animate-slide-up">
+          <div class="bg-white dark:bg-gray-900 backdrop-blur-lg rounded-2xl border border-gray-200 dark:border-gray-700 p-8 animate-slide-up">
             <div class="text-center mb-6">
               <!-- <div class="w-16 h-16 bg-gradient-to-br from-primary-500 to-primary-600 rounded-2xl shadow-lg shadow-primary-500/25 flex items-center justify-center mx-auto mb-4 animate-bounce-gentle">
                 <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -129,7 +129,7 @@
         <div v-if="isAuthenticated" class="space-y-6">
           <!-- Stats Cards -->
           <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-            <div class="bg-white dark:bg-neutral-900 backdrop-blur-lg rounded-2xl border border-neutral-200 dark:border-neutral-700 p-6 animate-slide-up" style="animation-delay: 0.1s;">
+            <div class="bg-white dark:bg-gray-900 backdrop-blur-lg rounded-2xl border border-gray-200 dark:border-gray-700 p-6 animate-slide-up" style="animation-delay: 0.1s;">
               <div class="flex items-center">
                 <div class="w-12 h-12 bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl shadow-lg shadow-blue-500/25 flex items-center justify-center">
                   <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -143,7 +143,7 @@
               </div>
             </div>
             
-            <div class="bg-white dark:bg-neutral-900 backdrop-blur-lg rounded-2xl border border-neutral-200 dark:border-neutral-700 p-6 animate-slide-up" style="animation-delay: 0.2s;">
+            <div class="bg-white dark:bg-gray-900 backdrop-blur-lg rounded-2xl border border-gray-200 dark:border-gray-700 p-6 animate-slide-up" style="animation-delay: 0.2s;">
               <div class="flex items-center">
                 <div class="w-12 h-12 bg-gradient-to-br from-green-500 to-green-600 rounded-xl shadow-lg shadow-green-500/25 flex items-center justify-center">
                   <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -163,7 +163,7 @@
               </div>
             </div>
             
-            <div class="bg-white dark:bg-neutral-900 backdrop-blur-lg rounded-2xl border border-neutral-200 dark:border-neutral-700 p-6 animate-slide-up" style="animation-delay: 0.3s;">
+            <div class="bg-white dark:bg-gray-900 backdrop-blur-lg rounded-2xl border border-gray-200 dark:border-gray-700 p-6 animate-slide-up" style="animation-delay: 0.3s;">
               <div class="flex items-center">
                 <div class="w-12 h-12 bg-gradient-to-br from-purple-500 to-purple-600 rounded-xl shadow-lg shadow-purple-500/25 flex items-center justify-center">
                   <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -222,7 +222,7 @@
             leave-to-class="opacity-0 -translate-y-4"
           >
             <div v-if="showTokensSection" class="mb-8 animate-slide-up" style="animation-delay: 0.45s;">
-              <div class="bg-white dark:bg-neutral-900 backdrop-blur-lg rounded-2xl border border-neutral-200 dark:border-neutral-700 p-6">
+              <div class="bg-white dark:bg-gray-900 backdrop-blur-lg rounded-2xl border border-gray-200 dark:border-gray-700 p-6">
                 <div class="flex justify-between items-center mb-6">
                   <div class="flex items-center space-x-3">
                     <div class="w-10 h-10 bg-gradient-to-br from-purple-500 to-purple-600 rounded-xl shadow-lg shadow-purple-500/25 flex items-center justify-center">
@@ -336,7 +336,7 @@
                 <div 
                   v-for="(node, index) in nodes" 
                   :key="node.id || node.url"
-                  class="bg-white dark:bg-neutral-900 backdrop-blur-lg rounded-2xl border border-neutral-200 dark:border-neutral-700 p-6 group"
+                  class="bg-white dark:bg-gray-900 backdrop-blur-lg rounded-2xl border border-gray-200 dark:border-gray-700 p-6 group"
                   :style="{ 'animation-delay': `${index * 0.1}s` }"
                 >
                   <!-- Card Header -->

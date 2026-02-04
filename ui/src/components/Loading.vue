@@ -15,7 +15,7 @@ onMounted(() => {
 
 <template>
   <div ref="cardRef" class="max-w-md mx-auto pt-12">
-    <div class="bg-white dark:bg-neutral-800 rounded-2xl border border-gray-200 dark:border-neutral-700 p-8">
+    <div class="bg-white dark:bg-gray-800 rounded-2xl border border-gray-200 dark:border-gray-700 p-8">
       <div class="text-center">
         <div class="inline-flex items-center justify-center w-16 h-16 rounded-2xl mb-6">
           <div class="w-8 h-8 border-4 border-sky-500 border-t-transparent rounded-full animate-spin"></div>

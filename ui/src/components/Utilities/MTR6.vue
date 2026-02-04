@@ -111,7 +111,7 @@ onMounted(() => {
       </div>
     </div> -->
 
-    <div class="rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-neutral-900 p-4">
+    <div class="rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 p-4">
       <div class="flex flex-col sm:flex-row gap-3">
         <!-- Input -->
         <div class="relative flex-1">

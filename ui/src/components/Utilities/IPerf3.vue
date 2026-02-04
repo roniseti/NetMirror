@@ -187,7 +187,7 @@ onUnmounted(() => {
     <!-- Control Panel -->
     <!-- <div class="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm border border-gray-200 dark:border-gray-700">
       <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4"> -->
-    <div class="rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-neutral-900 p-4">
+    <div class="rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 p-4">
       <div class="flex flex-col sm:flex-row gap-3">
         <div class="flex items-center space-x-4 flex-1">
           <div class="flex items-center justify-center w-12 h-12 bg-gradient-to-r from-green-500 to-emerald-500 rounded-xl">
@@ -277,8 +277,8 @@ onUnmounted(() => {
     </Transition>
 
     <!-- Terminal -->
-    <div class="bg-neutral-900 rounded-xl overflow-hidden border border-neutral-700">
-      <div class="flex items-center justify-between px-4 py-2 bg-neutral-800 border-b border-neutral-700">
+    <div class="bg-gray-900 rounded-xl overflow-hidden border border-gray-700">
+      <div class="flex items-center justify-between px-4 py-2 bg-gray-800 border-b border-gray-700">
         <div class="flex items-center space-x-2">
           <div class="w-3 h-3 bg-red-500 rounded-full"></div>
           <div class="w-3 h-3 bg-yellow-500 rounded-full"></div>

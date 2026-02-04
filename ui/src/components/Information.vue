@@ -87,7 +87,7 @@ const copyToClipboard = async (text, buttonRef = null) => {
 
 <template>
   <div
-    class="bg-white dark:bg-neutral-900 backdrop-blur-sm rounded-xl border dark:border-neutral-700 overflow-hidden">
+    class="bg-white dark:bg-gray-900 backdrop-blur-sm rounded-xl border dark:border-gray-700 overflow-hidden">
     <!-- Node Selection Info Header -->
     <!-- <div v-if="selectedNode" class="bg-blue-50 dark:bg-blue-900/20 border-b border-blue-200 dark:border-blue-700 p-4">
       <div class="flex items-center">

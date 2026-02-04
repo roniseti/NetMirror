@@ -56,7 +56,7 @@
       <button
         v-if="totalPages > 1"
         @click="goToPrevPage"
-        class="absolute left-0 top-1/2 transform -translate-y-1/2 z-10 w-10 h-10 bg-white dark:bg-neutral-800 backdrop-blur-sm border border-gray-200 dark:border-neutral-700 rounded-full shadow-lg transition-all duration-200 flex items-center justify-center opacity-0 hover:opacity-100 hover:bg-primary-50 dark:hover:bg-primary-900/30 hidden md:flex"
+        class="absolute left-0 top-1/2 transform -translate-y-1/2 z-10 w-10 h-10 bg-white dark:bg-gray-800 backdrop-blur-sm border border-gray-200 dark:border-gray-700 rounded-full shadow-lg transition-all duration-200 flex items-center justify-center opacity-0 hover:opacity-100 hover:bg-primary-50 dark:hover:bg-primary-900/30 hidden md:flex"
         @mouseenter="$event.target.style.opacity = '1'"
         @mouseleave="$event.target.style.opacity = '0'"
       >
@@ -68,7 +68,7 @@
       <button
         v-if="totalPages > 1"
         @click="goToNextPage"
-        class="absolute right-0 top-1/2 transform -translate-y-1/2 z-10 w-10 h-10 bg-white dark:bg-neutral-800 backdrop-blur-sm border border-gray-200 dark:border-neutral-700 rounded-full shadow-lg transition-all duration-200 flex items-center justify-center opacity-0 hover:opacity-100 hover:bg-primary-50 dark:hover:bg-primary-900/30 hidden md:flex"
+        class="absolute right-0 top-1/2 transform -translate-y-1/2 z-10 w-10 h-10 bg-white dark:bg-gray-800 backdrop-blur-sm border border-gray-200 dark:border-gray-700 rounded-full shadow-lg transition-all duration-200 flex items-center justify-center opacity-0 hover:opacity-100 hover:bg-primary-50 dark:hover:bg-primary-900/30 hidden md:flex"
         @mouseenter="$event.target.style.opacity = '1'"
         @mouseleave="$event.target.style.opacity = '0'"
       >
@@ -84,7 +84,7 @@
             <template v-for="node in currentPageNodes" :key="node.url">
               <div
                 @click="selectNode(node)"
-                class="relative bg-white dark:bg-neutral-800 rounded-lg shadow-sm hover:shadow-lg transition-all duration-300 border border-gray-200 dark:border-neutral-700 hover:border-primary-500 overflow-hidden group cursor-pointer"
+                class="relative bg-white dark:bg-gray-800 rounded-lg shadow-sm hover:shadow-lg transition-all duration-300 border border-gray-200 dark:border-gray-700 hover:border-primary-500 overflow-hidden group cursor-pointer"
                 :class="{ 
                   'ring-1 ring-primary-500': selectedNode && selectedNode.url === node.url,
                   'ring-1 ring-blue-500': isCurrentNode(node) && (!selectedNode || selectedNode.url !== node.url)

@@ -232,7 +232,7 @@ onUnmounted(() => {
             <div class="max-w-7xl mx-auto space-y-4 md:space-y-6 px-4 pt-4">
               <!-- Node List Card with enhanced mobile spacing -->
               <div>
-                <div class="bg-white dark:bg-neutral-900 rounded-xl border dark:border-neutral-700 overflow-hidden p-4 md:p-6">
+                <div class="bg-white dark:bg-gray-900 rounded-xl border dark:border-gray-700 overflow-hidden p-4 md:p-6">
                   <div class="mb-3 md:mb-4">
                     <h2 class="text-lg md:text-xl font-semibold text-gray-900 dark:text-gray-100 mb-2">Looking Glass Nodes Configuration</h2>
                     <p class="text-sm text-gray-600 dark:text-gray-400">Select and test connectivity to different network nodes</p>

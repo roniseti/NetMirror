@@ -58,7 +58,7 @@ onMounted(() => {
   <div 
     v-if="availableTests.length > 0"
     ref="cardRef" 
-    class="bg-white dark:bg-neutral-900 backdrop-blur-sm rounded-xl border dark:border-neutral-700 overflow-hidden"
+    class="bg-white dark:bg-gray-900 backdrop-blur-sm rounded-xl border dark:border-gray-700 overflow-hidden"
   >
     
     <div class="p-6 space-y-6">
@@ -88,9 +88,9 @@ onMounted(() => {
             :key="test.id"
             @click="activeTest = test.id"
             :class="[
-              'px-3 py-1.5 text-sm rounded-sm transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-400 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-neutral-900',
+              'px-3 py-1.5 text-sm rounded-sm transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-400 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-gray-900',
               activeTest === test.id
-                ? 'bg-white dark:bg-neutral-900 text-gray-900 dark:text-gray-100 shadow-sm'
+                ? 'bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 shadow-sm'
                 : 'text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100'
             ]"
           >
@@ -108,7 +108,7 @@ onMounted(() => {
   </div>
   
   <!-- No node selected state -->
-  <div v-else class="bg-white dark:bg-neutral-900 backdrop-blur-sm rounded-xl border dark:border-neutral-700 overflow-hidden">
+  <div v-else class="bg-white dark:bg-gray-900 backdrop-blur-sm rounded-xl border dark:border-gray-700 overflow-hidden">
     <div class="p-6 text-center">
       <div class="w-16 h-16 mx-auto mb-4 bg-gray-100 dark:bg-gray-700 rounded-full flex items-center justify-center">
         <svg class="w-8 h-8 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">

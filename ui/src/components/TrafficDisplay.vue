@@ -320,7 +320,7 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <div ref="cardRef" class="bg-white dark:bg-neutral-900 backdrop-blur-sm rounded-xl border dark:border-neutral-700 overflow-hidden">
+  <div ref="cardRef" class="bg-white dark:bg-gray-900 backdrop-blur-sm rounded-xl border dark:border-gray-700 overflow-hidden">
     <div class="p-6">
       <div v-if="Object.keys(interfaces).length === 0" class="text-center py-12">
         <ChartBarIcon class="w-16 h-16 text-gray-400/50 dark:text-gray-500/50 mx-auto mb-4" />

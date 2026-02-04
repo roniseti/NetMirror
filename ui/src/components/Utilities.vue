@@ -212,7 +212,7 @@ const closeTool = () => {
 </script>
 
 <template>
-  <div class="bg-white dark:bg-neutral-900 backdrop-blur-sm rounded-xl border dark:border-neutral-700 overflow-hidden" style="animation-delay: 0.1s;">
+  <div class="bg-white dark:bg-gray-900 backdrop-blur-sm rounded-xl border dark:border-gray-700 overflow-hidden" style="animation-delay: 0.1s;">
     <div class="p-4 md:p-6">
       <!-- Mobile: Header with description -->
       <div class="mb-4 md:mb-6">
@@ -249,8 +249,8 @@ const closeTool = () => {
           v-for="tool in availableTools"
           :key="tool.id"
           @click="openTool(tool)"
-          class="group relative rounded-xl p-4 md:p-5 text-left border border-gray-200 dark:border-neutral-700 
-                bg-white dark:bg-neutral-800
+          class="group relative rounded-xl p-4 md:p-5 text-left border border-gray-200 dark:border-gray-700 
+                bg-white dark:bg-gray-800
                 transition-all duration-300 ease-out
                 hover:shadow-lg hover:-translate-y-0.5
                 active:translate-y-0 min-h-[120px]"
@@ -316,7 +316,7 @@ const closeTool = () => {
           leave-from-class="translate-x-0"
           leave-to-class="translate-x-full"
         >
-          <div v-if="toolComponentShow" class="absolute right-0 top-0 h-full w-full max-w-3xl bg-white dark:bg-neutral-900 backdrop-blur-lg shadow-2xl flex flex-col border-l dark:border-neutral-700">
+          <div v-if="toolComponentShow" class="absolute right-0 top-0 h-full w-full max-w-3xl bg-white dark:bg-gray-900 backdrop-blur-lg shadow-2xl flex flex-col border-l dark:border-gray-700">
             <!-- Header -->
             <div class="flex items-center justify-between p-4 border-b border-primary-200/30 dark:border-primary-700/30 flex-shrink-0 bg-primary-50/50 dark:bg-gray-800/50">
               <div class="flex items-center space-x-4">

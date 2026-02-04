@@ -321,7 +321,7 @@ onMounted(() => {
     <!-- Results Display -->
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
       <!-- Download -->
-      <div class="bg-white dark:bg-neutral-800 backdrop-blur-sm rounded-2xl p-6 border dark:border-neutral-700 relative overflow-hidden">
+      <div class="bg-white dark:bg-gray-800 backdrop-blur-sm rounded-2xl p-6 border dark:border-gray-700 relative overflow-hidden">
         <div class="flex items-center space-x-4 mb-4">
           <div class="flex items-center justify-center w-12 h-12 bg-primary-100 dark:bg-primary-900/30 rounded-xl flex-shrink-0">
             <ArrowDownIcon class="w-6 h-6 text-primary-600 dark:text-primary-400" />
@@ -341,7 +341,7 @@ onMounted(() => {
       </div>
 
       <!-- Upload -->
-      <div class="bg-white dark:bg-neutral-800 backdrop-blur-sm rounded-2xl p-6 border dark:border-neutral-700 relative overflow-hidden">
+      <div class="bg-white dark:bg-gray-800 backdrop-blur-sm rounded-2xl p-6 border dark:border-gray-700 relative overflow-hidden">
         <div class="flex items-center space-x-4 mb-4">
           <div class="flex items-center justify-center w-12 h-12 bg-blue-100 dark:bg-blue-900/30 rounded-xl flex-shrink-0">
             <ArrowUpIcon class="w-6 h-6 text-blue-600 dark:text-blue-400" />
